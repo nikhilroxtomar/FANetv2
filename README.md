@@ -1,4 +1,4 @@
-# TGANet: Text-guided attention for improved polyp segmentation
+# TRANSFORMER-ENHANCED ITERATIVE FEEDBACK MECHANISM FOR POLYP SEGMENTATION
 
 ## 1. Abstract
 <div align="justify">
@@ -6,24 +6,35 @@ Colorectal cancer (CRC) is the third most common cause of cancer diagnosed in th
 </div>
 
 ## 2. Architecture
-<img src="figures/fanetv2.jpg">
+
+| ![Overview of the FANetv2 architecture](figures/fanetv2.jpg) |
+| :--: |
+| *Overview of the FANetv2 architecture.* |
+
+<div align="justify">
+FANetv2 takes two inputs: a polyp image and an initial input mask generated from Otsu thresholding. The method is designed to perform two key tasks: an auxiliary polyp attribute classification and the polyp segmentation. The input image is initially fed to the encoder, which forwards its output to the Feature Enhancement Block, whose output is used for polyp attribute classification and the rest of the network for polyp segmentation. An innovative aspect of FANetv2 is that it uses an initial input mask and the polyp attributes to generate a unified feature representation, which is then passed to the decoder to predict the final segmentation mask. It is to be noted that FANetv2 has two key mechanisms: a feedback attention mechanism that leverages input mask from the previous epoch to guide the proposed network to refine segmentation and a text-guided mechanism that incorporates crucial information about the polyp, such as the number and size of polyps present within an image. These components work together to enhance the feature representation, thus improving the overall performance of the proposed FANetv2.
+</div>
 
 ## 3. Implementation
-The proposed architecture is implemented using the PyTorch framework (1.9.0+cu111) with a single GeForce RTX 3090 GPU of 24 GB memory.
+The proposed architecture uses the PyTorch framework (1.9.0+cu111) with a single GeForce RTX 3090 GPU of 24 GB memory.
 
 ### 3.1 Dataset
 We have used the following datasets:
 - [BKAI](https://www.kaggle.com/competitions/bkai-igh-neopolyp/data)
 - [CVC-ClinicDB](https://www.dropbox.com/s/p5qe9eotetjnbmq/CVC-ClinicDB.rar?dl=0)
 
-All the dataset follows an 80:10:10 split for training, validation and testing, except for the Kvasir-SEG, where the dataset is split into training and testing.
+All the datasets follow an 80:10:10 split for training, validation, and testing.
 
 
 ## 4. Results
-### 4.1 Quantative Results
-<img src="figures/bkai-igh.png">
+### 4.1 Quantitative Results
+| ![Result of models trained and tested on BKAI-IGH](figures/bkai-igh.png) |
+| :--: |
+| *Result of models trained and tested on BKAI-IGH* |
 
-<img src="figures/cvc-clinicdb.png">
+| ![Result of models trained and tested on CVC-ClinicDB](figures/cvc-clinicdb.png) |
+| :--: |
+| *Result of models trained and tested on CVC-ClinicDB* |
 
 ### 4.2 Qualitative Results
 <img src="figures/bkai-cvc-result-heatmap-2.jpg">
